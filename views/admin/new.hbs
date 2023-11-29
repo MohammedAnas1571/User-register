@@ -1,0 +1,100 @@
+
+{{> header }}
+
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6 col-sm-8 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Create users</h3>
+          </div>
+          <div class="card-body">
+
+            {{#if error}}
+              <div class="mb-2">
+                <div class="alert alert-danger">{{ error }}</div>
+              </div>
+            {{/if}}
+
+
+            <form id="loginForm" action="/admin/users" method="post" novalidate>
+              <div class="mb-3">
+                <label for="username" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+                <div class="invalid-feedback" id="usernameError">Please enter your name</div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" min="6" required />
+                <div class="invalid-feedback" id="emailError">Please enter a valid email.</div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" min="6" required />
+                <div class="invalid-feedback" id="passwordError">Please enter 6 characters</div>
+              </div>
+              <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile</label>
+                <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Enter Number" min="10"  required />
+                <div class="invalid-feedback" id="passwordError">Please enter your correct number</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="isVerified" id="flexRadioDefault1" value="1"  required/>
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Verified
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="isVerified" id="flexRadioDefault2" value="0"  required/>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Not verified
+                </label>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block mt-3">Create user</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  {{!-- front end validation --}}
+  <script>
+    const form = document.querySelector("#loginForm")
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (form.checkValidity() === false) {
+            form.classList.add("was-validated")
+        } else if (!customValidity()) {
+            return;
+        } 
+        else {
+            form.submit()
+        }
+    }, false)
+
+    function customValidity() {
+        const password = document.getElementById("password")
+        const mobile = document.getElementById("mobile")
+          if (password.value.length < 6) {
+            password.classList.add("is-invalid");
+            password.nextElementSibling.style.display = "block";
+            return false;
+          } 
+          if (mobile.value.length < 10 || mobile.value.length >10 ) {
+            mobile.classList.add("is-invalid");
+            mobile.nextElementSibling.style.display = "block";
+            return false;
+          } 
+        return true;
+    }
+  </script>
+
+
+{{> footer }}
+
+

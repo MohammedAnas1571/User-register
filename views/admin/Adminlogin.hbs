@@ -1,0 +1,76 @@
+{{> header }}
+
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6 col-sm-8 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Login</h3>
+          </div>
+          <div class="card-body">
+
+           
+
+
+            <form id="loginForm" action="/admin/login" method="post" novalidate>
+              <div class="mb-3">
+                <label for="username" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                <div class="invalid-feedback" id="usernameError">Please enter a valid email.</div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" min="6" required />
+                <div class="invalid-feedback" id="passwordError">Please enter a valid password.</div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+              </div>
+              <div class="d-grid">
+                <a type="submit" href="/login" class="btn btn-secondary btn-block mt-3">Back to user Login</a>
+              </div>
+              
+            </form>
+
+
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  {{!--form validation using bootstrap --}}
+  <script>
+    const form = document.querySelector("#loginForm")
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (form.checkValidity() === false) {
+            form.classList.add("was-validated")
+        } else if (!customValidity()) {
+            return;
+        } 
+        else {
+            form.submit()
+        }
+    }, false)
+
+    function customValidity() {
+        const password = document.getElementById("password")
+          if (password.value.length < 6) {
+            password.classList.add("is-invalid");
+            password.nextElementSibling.style.display = "block";
+            return false;
+          } 
+          return true;
+    }
+    </script>
+    
+
+{{> footer }}
+  
